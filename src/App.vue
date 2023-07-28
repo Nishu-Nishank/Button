@@ -1,28 +1,39 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="m-10">
+    <div class="grid grid-cols-3 gap-y-12">
+      <Button
+        v-for="(item, index) in buttonsList"
+        :key="index"
+        class="justify-self-center"
+        :shape="item.shape"
+        :size="item.size"
+        :color="item.color"
+        :inactive="item.inActive"
+        :isLoading="item.isLoading"
+        :content="item.content"
+        @click="handleClick"
+        ></Button
+      >
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Button from "./components/Button.vue";
+import {buttonsList} from "./constant/index";
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    Button,
+  },
+  data() {
+    return {
+      buttonsList
+    };
+  },
+  methods: {
+    handleClick(value) {
+      this.$toasted.show(`${value} Button Clicked`)
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
